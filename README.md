@@ -1,4 +1,4 @@
-# prova
+# Flutter Course Project
 
 A new Flutter project.
 
