@@ -59,7 +59,33 @@ class H2 extends StatelessWidget {
   }
 }
 
+class P extends StatelessWidget {
+  const P(
+    this.label, {
+    super.key,
+    this.color,
+    this.maxLines,
+  });
+
+  final String label;
+  final Color? color;
+  final int? maxLines;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: TypographyStyles.p.copyWith(
+        color: color,
+      ),
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
+
 void main() {
   const H1('Hello');
   const H2('Hello');
+  const P('Hello');
 }

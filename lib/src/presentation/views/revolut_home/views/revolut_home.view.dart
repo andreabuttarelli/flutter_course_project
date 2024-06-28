@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prova/src/presentation/design_system/typography/widgets/typography.widget.dart';
-import 'package:prova/src/presentation/revolut_home/widgets/app_bar.revolut_home.widget.dart';
+import 'package:prova/src/presentation/views/revolut_home/widgets/app_bar.revolut_home.widget.dart';
 
 part '../widgets/indicator_item.revolut_home.widget.dart';
 

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:prova/src/presentation/design_system/palette/palette.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TypographyStyles {
   static const TextStyle h1 = TextStyle(
+    fontFamily: 'BasierCircle',
     fontSize: 32,
     fontWeight: FontWeight.bold,
   );
-  static const TextStyle h2 = TextStyle(
+  static final TextStyle h2 = GoogleFonts.koulen(
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
-  static const TextStyle h3 = TextStyle(
+  static final TextStyle h3 = GoogleFonts.koulen(
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
-  static const TextStyle h4 = TextStyle(
+  static final TextStyle h4 = GoogleFonts.koulen(
     fontSize: 16,
     fontWeight: FontWeight.bold,
   );
-  static const TextStyle p = TextStyle(
+  static final TextStyle p = GoogleFonts.koulen(
     fontSize: 14,
     fontWeight: FontWeight.bold,
   );
