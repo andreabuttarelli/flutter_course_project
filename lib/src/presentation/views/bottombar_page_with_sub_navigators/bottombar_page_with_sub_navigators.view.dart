@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prova/src/presentation/design_system/buttons/buttons.widget.dart';
 import 'package:prova/src/presentation/design_system/typography/widgets/typography.widget.dart';
+import 'package:prova/src/presentation/inherited_widgets/theme.inherited.dart';
 
 class BottombarPageWithSubNavigatorsView extends StatefulWidget {
-  const BottombarPageWithSubNavigatorsView({super.key});
+  const BottombarPageWithSubNavigatorsView({
+    super.key,
+  });
 
   @override
   State<BottombarPageWithSubNavigatorsView> createState() =>
@@ -14,9 +17,45 @@ class _BottombarPageWithSubNavigatorsViewState
     extends State<BottombarPageWithSubNavigatorsView> {
   int currentIndex = 0;
 
+  bool isLightMode(ThemeMode currentValue) => currentValue == ThemeMode.light;
+
+  T getThemedValues<T>(ThemeMode currentValue, T light, T dark) =>
+      isLightMode(currentValue) ? light : dark;
+
   @override
   Widget build(BuildContext context) {
+    final themeModeNotifier = InheritedAppTheme.of(context).themeMode;
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {},
+        ),
+        title: const Text('Bottombar Page With Sub Navigators'),
+        actions: [
+          IconButton(
+            icon: ValueListenableBuilder(
+              valueListenable: themeModeNotifier,
+              builder: (context, mode, _) {
+                return Icon(
+                  getThemedValues(
+                    mode,
+                    Icons.sunny,
+                    Icons.stars,
+                  ),
+                );
+              },
+            ),
+            onPressed: () {
+              themeModeNotifier.value = getThemedValues(
+                themeModeNotifier.value,
+                ThemeMode.light,
+                ThemeMode.dark,
+              );
+            },
+          ),
+        ],
+      ),
       body: IndexedStack(
         index: currentIndex,
         children: const [
