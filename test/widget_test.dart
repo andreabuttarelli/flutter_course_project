@@ -1,30 +1,49 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
+import 'package:prova/src/data/repositories/feed.repository.impl.dart';
+import 'package:prova/src/data/repositories/feed.repository.impl.local.dart';
+import 'package:prova/src/data/services/feed.local.service.dart';
+import 'package:prova/src/data/services/feed.service.dart';
+import 'package:prova/src/domain/usecases/get_posts.usecase.dart';
 
-import 'package:prova/main.dart';
+void main() => tests();
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const App());
+void tests() {
+  group(
+    'remote operations',
+    () {
+      final client = Client();
+      final service = FeedService(client);
+      final reposiory = FeedRepositoryImpl(service);
+      final getPosts = GetPostsUseCase(reposiory);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      test(
+        'getPosts',
+        () async {
+          final result = await getPosts.call();
+          expect(result.isRight, true);
+          expect(result.right.length, 100);
+        },
+      );
+    },
+  );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  group(
+    'local operations',
+    () {
+      final client = Client();
+      final service = FeedLocalService(client);
+      final reposiory = FeedRepositoryLocalImpl(service);
+      final getPosts = GetPostsUseCase(reposiory);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+      test(
+        'getPosts',
+        () async {
+          final result = await getPosts.call();
+          expect(result.isRight, true);
+          expect(result.right.length, 4);
+        },
+      );
+    },
+  );
 }

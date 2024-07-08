@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:prova/src/core/bloc_observer.dart';
+import 'package:prova/src/data/repositories/feed.repository.impl.dart';
+import 'package:prova/src/data/services/feed.service.dart';
+import 'package:prova/src/di/init.dart';
+import 'package:prova/src/domain/repositories/feed.repository.interface.dart';
+import 'package:prova/src/domain/usecases/add_post.usecase.dart';
+import 'package:prova/src/domain/usecases/get_posts.usecase.dart';
 import 'package:prova/src/presentation/design_system/buttons/buttons.widget.dart';
 import 'package:prova/src/presentation/design_system/custom_theme/custom_theme.dart';
 import 'package:prova/src/presentation/design_system/palette/palette.dart';
@@ -9,6 +16,8 @@ import 'package:prova/src/presentation/inherited_widgets/theme.inherited.dart';
 import 'package:prova/src/presentation/views/bottombar_page_with_sub_navigators/bottombar_page_with_sub_navigators.view.dart';
 import 'package:prova/src/presentation/views/cubit_auth/blocs/auth.cubit.dart';
 import 'package:prova/src/presentation/views/cubit_auth/cubit_auth.view.dart';
+import 'package:prova/src/presentation/views/feed_view/feed_with_future_builder.view.dart';
+import 'package:prova/src/presentation/views/feed_view/feed_with_state.view.dart';
 import 'package:prova/src/presentation/views/splash/splash.view.dart';
 
 const _kDefaultTheme = ThemeMode.light;
@@ -37,7 +46,7 @@ class _AppState extends State<App> {
         });
       }
     });
-    initDependencies();
+    _initDependencies();
   }
 
   @override
@@ -46,7 +55,7 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
-  Future<void> initDependencies() async {
+  Future<void> _initDependencies() async {
     try {
       setState(() {
         isLoading = true;
@@ -54,6 +63,7 @@ class _AppState extends State<App> {
 
       /// init dependencies here
       Bloc.observer = AppBlocObserver();
+      initDependencies();
       setState(() {
         isLoading = false;
       });
@@ -82,7 +92,7 @@ class _AppState extends State<App> {
                 ),
                 PrimaryButton(
                   label: 'Try again',
-                  onTap: initDependencies,
+                  onTap: _initDependencies,
                 ),
               ],
             ),
@@ -160,7 +170,7 @@ class _AppState extends State<App> {
                     ],
                   ),
                   themeMode: mode,
-                  home: const CubitAuthView(),
+                  home: const FeedViewWithState(),
                 );
               },
             );
