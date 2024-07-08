@@ -20,7 +20,7 @@ version: 1.0.0+1
 
 scripts:
   web: flutter run -d chrome
-  ios: flutter run -d 00008110-000A18EE3C22801E
+  add: flutter pub add
 
 environment:
   sdk: '>=3.4.1 <4.0.0'
@@ -45,6 +45,9 @@ dependencies:
   rive: ^0.13.8
   gap: ^3.0.1
   provider: ^6.1.2
+  flutter_bloc: ^8.1.6
+  logger: ^2.3.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

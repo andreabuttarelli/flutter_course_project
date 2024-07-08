@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prova/src/core/bloc_observer.dart';
 import 'package:prova/src/presentation/design_system/buttons/buttons.widget.dart';
 import 'package:prova/src/presentation/design_system/custom_theme/custom_theme.dart';
 import 'package:prova/src/presentation/design_system/palette/palette.dart';
 import 'package:prova/src/presentation/design_system/typography/styles/styles.typography.dart';
 import 'package:prova/src/presentation/inherited_widgets/theme.inherited.dart';
 import 'package:prova/src/presentation/views/bottombar_page_with_sub_navigators/bottombar_page_with_sub_navigators.view.dart';
+import 'package:prova/src/presentation/views/cubit_auth/blocs/auth.cubit.dart';
+import 'package:prova/src/presentation/views/cubit_auth/cubit_auth.view.dart';
 import 'package:prova/src/presentation/views/splash/splash.view.dart';
 
 const _kDefaultTheme = ThemeMode.light;
@@ -47,6 +51,9 @@ class _AppState extends State<App> {
       setState(() {
         isLoading = true;
       });
+
+      /// init dependencies here
+      Bloc.observer = AppBlocObserver();
       setState(() {
         isLoading = false;
       });
@@ -83,74 +90,82 @@ class _AppState extends State<App> {
         ),
       );
     }
-    return InheritedAppTheme(
-      themeMode: themeModeNotifier,
-      child: Builder(
-        builder: (context) {
-          final themeModeNotifier = InheritedAppTheme.of(context).themeMode;
-          return ValueListenableBuilder(
-            valueListenable: themeModeNotifier,
-            builder: (context, mode, _) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData.light().copyWith(
-                  colorScheme: ColorScheme.light(
-                    primary: AppPalette.light.accent.primary,
-                    secondary: AppPalette.light.accent.secondary,
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: InheritedAppTheme(
+        themeMode: themeModeNotifier,
+        child: Builder(
+          builder: (context) {
+            final themeModeNotifier = InheritedAppTheme.of(context).themeMode;
+            return ValueListenableBuilder(
+              valueListenable: themeModeNotifier,
+              builder: (context, mode, _) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData.light().copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: AppPalette.light.accent.primary,
+                      secondary: AppPalette.light.accent.secondary,
+                      surface: AppPalette.light.background.primary,
+                    ),
+                    scaffoldBackgroundColor:
+                        AppPalette.light.background.primary,
+                    textTheme: TextTheme(
+                      displayLarge: TypographyStyles.h1.copyWith(
+                        color: AppPalette.light.text.primary,
+                      ),
+                      headlineLarge: TypographyStyles.h2.copyWith(
+                        color: AppPalette.light.text.primary,
+                      ),
+                      titleLarge: TypographyStyles.h3.copyWith(
+                        color: AppPalette.light.text.primary,
+                      ),
+                      bodyLarge: TypographyStyles.p.copyWith(
+                        color: AppPalette.light.text.primary,
+                      ),
+                      labelLarge: TypographyStyles.p.copyWith(
+                        color: AppPalette.light.text.primary,
+                      ),
+                    ),
+                    extensions: [
+                      const AppTheme(),
+                    ],
                   ),
-                  textTheme: TextTheme(
-                    displayLarge: TypographyStyles.h1.copyWith(
-                      color: AppPalette.light.text.primary,
+                  darkTheme: ThemeData.dark().copyWith(
+                    colorScheme: ColorScheme.dark(
+                      primary: AppPalette.dark.accent.primary,
+                      secondary: AppPalette.dark.accent.secondary,
+                      surface: AppPalette.dark.background.primary,
                     ),
-                    headlineLarge: TypographyStyles.h2.copyWith(
-                      color: AppPalette.light.text.primary,
+                    scaffoldBackgroundColor: AppPalette.dark.background.primary,
+                    textTheme: TextTheme(
+                      displayLarge: TypographyStyles.h1.copyWith(
+                        color: AppPalette.dark.text.primary,
+                      ),
+                      headlineLarge: TypographyStyles.h2.copyWith(
+                        color: AppPalette.dark.text.primary,
+                      ),
+                      titleLarge: TypographyStyles.h3.copyWith(
+                        color: AppPalette.dark.text.primary,
+                      ),
+                      bodyLarge: TypographyStyles.p.copyWith(
+                        color: AppPalette.dark.text.primary,
+                      ),
+                      labelLarge: TypographyStyles.p.copyWith(
+                        color: AppPalette.dark.text.primary,
+                      ),
                     ),
-                    titleLarge: TypographyStyles.h3.copyWith(
-                      color: AppPalette.light.text.primary,
-                    ),
-                    bodyLarge: TypographyStyles.p.copyWith(
-                      color: AppPalette.light.text.primary,
-                    ),
-                    labelLarge: TypographyStyles.p.copyWith(
-                      color: AppPalette.light.text.primary,
-                    ),
+                    extensions: [
+                      const AppTheme(),
+                    ],
                   ),
-                  extensions: [
-                    const AppTheme(),
-                  ],
-                ),
-                darkTheme: ThemeData.dark().copyWith(
-                  colorScheme: ColorScheme.dark(
-                    primary: AppPalette.light.accent.primary,
-                    secondary: AppPalette.light.accent.secondary,
-                  ),
-                  textTheme: TextTheme(
-                    displayLarge: TypographyStyles.h1.copyWith(
-                      color: AppPalette.dark.text.primary,
-                    ),
-                    headlineLarge: TypographyStyles.h2.copyWith(
-                      color: AppPalette.dark.text.primary,
-                    ),
-                    titleLarge: TypographyStyles.h3.copyWith(
-                      color: AppPalette.dark.text.primary,
-                    ),
-                    bodyLarge: TypographyStyles.p.copyWith(
-                      color: AppPalette.dark.text.primary,
-                    ),
-                    labelLarge: TypographyStyles.p.copyWith(
-                      color: AppPalette.dark.text.primary,
-                    ),
-                  ),
-                  extensions: [
-                    const AppTheme(),
-                  ],
-                ),
-                themeMode: mode,
-                home: const BottombarPageWithSubNavigatorsView(),
-              );
-            },
-          );
-        },
+                  themeMode: mode,
+                  home: const CubitAuthView(),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

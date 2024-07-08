@@ -136,8 +136,9 @@ class _CounterText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counter = context.watch<_CounterNotifier>().counter;
-    // final counter = context.select<_CounterNotifier, int>((counterNotifier) => counterNotifier.counter);
+    //final counter = context.watch<_CounterNotifier>().counter;
+    final counter = context.select<_CounterNotifier, int>(
+        (counterNotifier) => counterNotifier.counter);
     return Text('$counter');
   }
 }

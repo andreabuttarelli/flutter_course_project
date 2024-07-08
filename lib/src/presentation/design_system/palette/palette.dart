@@ -20,15 +20,15 @@ class _Dark {
 class _AppPaletteBackgroundLight {
   _AppPaletteBackgroundLight();
 
-  final Color primary = const Color(0xFF000000);
-  final Color secondary = const Color(0xFF000000);
+  final Color primary = const Color(0xFFffffff);
+  final Color secondary = const Color(0xFFffffff);
 }
 
 class _AppPaletteBackgroundDark {
   _AppPaletteBackgroundDark();
 
-  final Color primary = const Color(0xFFffffff);
-  final Color secondary = const Color(0xFFffffff);
+  final Color primary = const Color(0x0ff00000);
+  final Color secondary = const Color(0x0ff00000);
 }
 
 class _AppPaletteAccentLight {
