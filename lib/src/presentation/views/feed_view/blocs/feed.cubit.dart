@@ -22,6 +22,14 @@ class FeedCubit extends Cubit<FeedState> {
           ),
         );
   }
+
+  void addPost() {
+    const post = PostModel(id: 1, title: 'Qualcosa', body: 'Ciao');
+    final currentState = state;
+    if (currentState is FeedLoaded) {
+      emit(FeedLoaded([...currentState.posts, post]));
+    }
+  }
 }
 
 abstract class FeedState {

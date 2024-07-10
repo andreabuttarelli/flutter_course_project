@@ -47,38 +47,40 @@ class _BodyState extends State<_Body> {
               icon: const Icon(Icons.replay_outlined)),
         ],
       ),
-      body: BlocBuilder<FeedCubit, FeedState>(builder: (context, state) {
-        if (state is FeedLoading) {
-          return const Center(
-            child: CCircularProgressIndicator(),
-          );
-        }
-        if (state is FeedError) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const H2('Error'),
-                P(state.error.toString()),
-              ],
-            ),
-          );
-        }
-        if (state is FeedLoaded) {
-          return ListView.builder(
-            itemCount: state.posts.length,
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  title: H2(state.posts[index].title),
-                  subtitle: P(state.posts[index].body),
-                ),
-              );
-            },
-          );
-        }
-        return const SizedBox();
-      }),
+      body: BlocBuilder<FeedCubit, FeedState>(
+        builder: (context, state) {
+          if (state is FeedLoading) {
+            return const Center(
+              child: CCircularProgressIndicator(),
+            );
+          }
+          if (state is FeedError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const H2('Error'),
+                  P(state.error.toString()),
+                ],
+              ),
+            );
+          }
+          if (state is FeedLoaded) {
+            return ListView.builder(
+              itemCount: state.posts.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: H2(state.posts[index].title),
+                    subtitle: P(state.posts[index].body),
+                  ),
+                );
+              },
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 }

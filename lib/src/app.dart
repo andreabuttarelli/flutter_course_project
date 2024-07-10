@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prova/src/core/bloc_observer.dart';
 import 'package:prova/src/data/repositories/feed.repository.impl.dart';
 import 'package:prova/src/data/services/feed.service.dart';
@@ -17,6 +20,7 @@ import 'package:prova/src/presentation/views/bottombar_page_with_sub_navigators/
 import 'package:prova/src/presentation/views/cubit_auth/blocs/auth.cubit.dart';
 import 'package:prova/src/presentation/views/cubit_auth/cubit_auth.view.dart';
 import 'package:prova/src/presentation/views/feed_view/feed_with_future_builder.view.dart';
+import 'package:prova/src/presentation/views/feed_view/feed_with_local_state.view.dart';
 import 'package:prova/src/presentation/views/feed_view/feed_with_state.view.dart';
 import 'package:prova/src/presentation/views/splash/splash.view.dart';
 
@@ -64,6 +68,12 @@ class _AppState extends State<App> {
       /// init dependencies here
       Bloc.observer = AppBlocObserver();
       initDependencies();
+      WidgetsFlutterBinding.ensureInitialized();
+      HydratedBloc.storage = await HydratedStorage.build(
+        storageDirectory: kIsWeb
+            ? HydratedStorage.webStorageDirectory
+            : await getApplicationDocumentsDirectory(),
+      );
       setState(() {
         isLoading = false;
       });
@@ -170,7 +180,7 @@ class _AppState extends State<App> {
                     ],
                   ),
                   themeMode: mode,
-                  home: const FeedViewWithState(),
+                  home: const FeedViewWithLocalState(),
                 );
               },
             );
