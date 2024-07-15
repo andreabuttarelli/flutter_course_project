@@ -1,14 +1,14 @@
 import 'package:either_dart/either.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestionale/src/core/bloc_observer/bloc_observer.dart';
 import 'package:gestionale/src/core/custom_exceptions/app_exception.dart';
+import 'package:gestionale/src/di/di.dart';
+import 'package:gestionale/src/domain/usecases/init_dependencies.usecase.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 
 class InitCubit extends Cubit<InitState> {
-  InitCubit() : super(InitiLoading());
+  InitCubit(this._initDependenciesUseCase) : super(InitiLoading());
+
+  final InitDependenciesUseCase _initDependenciesUseCase;
 
   void initDependencies() {
     _initDependencies().then(
@@ -24,13 +24,11 @@ class InitCubit extends Cubit<InitState> {
 
   Future<Either<AppException, void>> _initDependencies() async {
     try {
-      Bloc.observer = AppBlocObserver();
-      WidgetsFlutterBinding.ensureInitialized();
-      HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: kIsWeb
-            ? HydratedStorage.webStorageDirectory
-            : await getApplicationDocumentsDirectory(),
-      );
+      initDependenciesWithGetIt();
+      final res = await _initDependenciesUseCase.call();
+      if (res.isLeft) {
+        throw res.left;
+      }
       return const Right(null);
     } catch (e, s) {
       return Left(

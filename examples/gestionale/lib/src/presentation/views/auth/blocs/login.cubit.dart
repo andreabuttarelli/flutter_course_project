@@ -15,7 +15,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void updatePassword(String password) {
-    assert(password.length >= 6);
     final currentState = state;
     assert(currentState is LoginInitial);
     if (currentState is! LoginInitial) return;

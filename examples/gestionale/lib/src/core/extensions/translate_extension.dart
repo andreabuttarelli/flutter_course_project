@@ -10,6 +10,10 @@ extension TranslateExtension on BuildContext {
       return read<TranslationsCubit>().translate(text);
     }
   }
+
+  Locale locale() => read<TranslationsCubit>().state.locale;
+
+  void setLocale(Locale locale) => read<TranslationsCubit>().setLocale(locale);
 }
 
 void prova(BuildContext context) {

@@ -7,19 +7,28 @@ import 'package:gestionale/src/presentation/global_blocs/auth/auth.cubit.dart';
 import 'package:gestionale/src/presentation/views/auth/blocs/login.cubit.dart';
 
 class AuthView extends StatelessWidget {
-  const AuthView({super.key});
+  const AuthView({
+    super.key,
+    this.useAuthCubit = true,
+  });
+
+  final bool useAuthCubit;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(),
-      child: const _Body(),
+      child: _Body(
+        useAuthCubit: useAuthCubit,
+      ),
     );
   }
 }
 
 class _Body extends StatefulWidget {
-  const _Body({super.key});
+  const _Body({super.key, required this.useAuthCubit});
+
+  final bool useAuthCubit;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -76,10 +85,12 @@ class _BodyState extends State<_Body> {
           return;
         }
         if (state is LoginSuccess) {
-          context.read<AuthCubit>().updateCurrentUserSession(
-                state.accessToken,
-                state.user,
-              );
+          if (widget.useAuthCubit) {
+            context.read<AuthCubit>().updateCurrentUserSession(
+                  state.accessToken,
+                  state.user,
+                );
+          }
         }
       },
       child: Scaffold(
@@ -103,6 +114,14 @@ class _BodyState extends State<_Body> {
                 BlocBuilder<LoginCubit, LoginState>(
                   builder: (context, state) {
                     final valid = isFormValid(state);
+                    if (state is LoginSuccess) {
+                      return const Text(
+                        'Login Success',
+                        style: TextStyle(
+                          color: Colors.green,
+                        ),
+                      );
+                    }
                     return IgnorePointer(
                       ignoring: !valid,
                       child: Opacity(

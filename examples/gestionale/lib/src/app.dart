@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:gestionale/src/data/repositories/init_dependencies.repository.dart';
+import 'package:gestionale/src/data/services/init_dependencies.service.remote.dart';
+import 'package:gestionale/src/di/di.dart';
+import 'package:gestionale/src/domain/usecases/init_dependencies.usecase.dart';
 import 'package:gestionale/src/presentation/global_blocs/auth/auth.cubit.dart';
 import 'package:gestionale/src/presentation/global_blocs/init/init.cubit.dart';
 import 'package:gestionale/src/presentation/global_blocs/translations/translations.cubit.dart';
@@ -10,18 +15,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => InitCubit()..initDependencies(),
+    return BlocProvider(
+      create: (context) => InitCubit(
+        InitDependenciesUseCase(
+          initCubitUseCaseDependency(),
         ),
-        BlocProvider(
-          create: (context) => TranslationsCubit(),
-        ),
-        BlocProvider(
-          create: (context) => AuthCubit()..refreshToken(),
-        ),
-      ],
+      )..initDependencies(),
       child: const _App(),
     );
   }
@@ -36,12 +35,61 @@ class _App extends StatelessWidget {
       builder: (context, state) {
         if (state is InitiLoading) {
           /// loading widget
+          return const Material(
+            color: Colors.white,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
         if (state is InitError) {
           /// error widget
+          return Material(
+            color: Colors.white,
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Error'),
+                    FilledButton(
+                      onPressed: () {
+                        context.read<InitCubit>().initDependencies();
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
         }
-        return const MaterialApp(
-          home: SplashView(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => TranslationsCubit(),
+            ),
+            BlocProvider(
+              create: (context) => AuthCubit()..refreshToken(),
+            ),
+          ],
+          child: BlocBuilder<TranslationsCubit, TranslationsState>(
+            builder: (context, state) {
+              return MaterialApp(
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  ...state.translations.keys.map((e) => Locale(e)),
+                ],
+                locale: state.locale,
+                home: const SplashView(),
+              );
+            },
+          ),
         );
       },
     );

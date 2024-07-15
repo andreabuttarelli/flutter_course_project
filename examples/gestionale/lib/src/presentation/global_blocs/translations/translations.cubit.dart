@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gestionale/src/core/translations/index.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'dart:io';
+
+Locale get _getUserLocale {
+  final userLocaleString = Platform.localeName;
+  return Locale(userLocaleString.split('_').first);
+}
 
 RegExp _exp(String word) => RegExp("@$word\\b");
 
@@ -12,7 +18,12 @@ const _kTranslationInitialValue = TranslationsState(
 
 class TranslationsCubit extends HydratedCubit<TranslationsState> {
   TranslationsCubit({TranslationsState? initialValue})
-      : super(initialValue ?? _kTranslationInitialValue);
+      : super(
+          initialValue ??
+              _kTranslationInitialValue.copyWith(
+                locale: _getUserLocale,
+              ),
+        );
 
   void setLocale(Locale locale) {
     emit(state.copyWith(locale: locale));
