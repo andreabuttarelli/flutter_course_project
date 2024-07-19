@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gestionale/src/core/extensions/translate_extension.dart';
 import 'package:gestionale/src/presentation/design_system/typography/h1.dart';
+import 'package:localization/localization.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -34,6 +34,16 @@ class HomeView extends StatelessWidget {
                 );
               },
               child: const Text('Open Date Picker'),
+            ),
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const HomeView(),
+                  ),
+                );
+              },
+              child: const Text('Open a new page'),
             ),
           ],
         ),

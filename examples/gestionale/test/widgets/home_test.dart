@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gestionale/src/core/translations/index.dart';
-import 'package:gestionale/src/presentation/global_blocs/translations/translations.cubit.dart';
 import 'package:gestionale/src/presentation/views/home/home.view.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:localization/localization.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() => tests();
@@ -22,15 +21,11 @@ void tests() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: BlocProvider(
-          create: (context) => TranslationsCubit(
-            initialValue: const TranslationsState(
-              locale: Locale('en'),
-              fallbackLocale: Locale('it'),
-              translations: translations,
-            ),
-          ),
-          child: const HomeView(),
+        home: CustomLocalization(
+          locale: const Locale('en'),
+          fallbackLocale: const Locale('it'),
+          translations: translations,
+          builder: (context, locale) => const HomeView(),
         ),
       ),
     );
