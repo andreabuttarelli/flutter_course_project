@@ -1,0 +1,3 @@
+void initDependenciesWithGetIt() {}
+
+void initCubitUseCaseDependency() {}

@@ -17,7 +17,7 @@ class App extends StatelessWidget {
     return BlocProvider(
       create: (context) => InitCubit(
         InitDependenciesUseCase(
-          initCubitUseCaseDependency(),
+          getIt(),
         ),
       )..initDependencies(),
       child: const _App(),

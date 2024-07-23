@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:logger/web.dart';
 
@@ -7,10 +5,10 @@ class ConnectionChecker {
   const ConnectionChecker(this._logger);
   final Logger _logger;
   Future<void> checkConnection() async {
-    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+    /*if (Platform.environment.containsKey('FLUTTER_TEST')) {
       _logger.i('Test connection');
       return;
-    }
+    }*/
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile)) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gestionale/src/core/translations/index.dart';
-import 'package:gestionale/src/presentation/views/home/home.view.dart';
+import 'package:gestionale/src/presentation/views/localization_test/localization_test.view.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:localization/localization.dart';
 import 'package:mocktail/mocktail.dart';

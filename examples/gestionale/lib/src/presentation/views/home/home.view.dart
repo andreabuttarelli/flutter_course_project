@@ -1,51 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:gestionale/src/presentation/design_system/typography/h1.dart';
-import 'package:localization/localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestionale/src/presentation/global_blocs/auth/auth.cubit.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final List<dynamic> posts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadPosts();
+  }
+
+  Future<void> loadPosts() async {
+    try {
+      final res = await Supabase.instance.client
+          .from('posts')
+          .select('id, image, content');
+      print(res);
+      setState(() {
+        posts.clear();
+        posts.addAll(res);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => context.read<AuthCubit>().logout(),
+          ),
+        ],
+      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const H1('hello'),
-            FilledButton(
-              onPressed: () {
-                context.setLocale(const Locale('it'));
-              },
-              child: const Text('Change to Italian'),
-            ),
-            FilledButton(
-              onPressed: () {
-                context.setLocale(const Locale('en'));
-              },
-              child: const Text('Change to English'),
-            ),
-            FilledButton(
-              onPressed: () {
-                showDatePicker(
-                  context: context,
-                  firstDate: DateTime(1990),
-                  lastDate: DateTime(2030),
-                );
-              },
-              child: const Text('Open Date Picker'),
-            ),
-            FilledButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HomeView(),
-                  ),
-                );
-              },
-              child: const Text('Open a new page'),
-            ),
-          ],
+        child: ListView.builder(
+          itemCount: posts.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(posts[index]['content']),
+              subtitle: Text(posts[index]['id']),
+            );
+          },
         ),
       ),
     );

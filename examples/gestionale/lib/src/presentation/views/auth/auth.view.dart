@@ -1,10 +1,15 @@
+import 'package:app_links/app_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestionale/src/data/models/user.model.dart';
 import 'package:gestionale/src/presentation/design_system/custom_circular_progress_indicator.dart';
 import 'package:gestionale/src/presentation/global_blocs/auth/auth.cubit.dart';
 import 'package:gestionale/src/presentation/views/auth/blocs/login.cubit.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({
@@ -37,6 +42,8 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  final appLinks = AppLinks();
+  final supabase = Supabase.instance.client;
 
   LoginCubit get _loginCubit => context.read<LoginCubit>();
   bool isFormValid(LoginState state) =>
@@ -138,6 +145,38 @@ class _BodyState extends State<_Body> {
                       ),
                     );
                   },
+                ),
+                const Spacer(),
+                FilledButton(
+                  onPressed: () {
+                    supabase.auth.signInWithOAuth(
+                      OAuthProvider.github,
+                      redirectTo:
+                          kIsWeb ? null : 'com.example.gestionale://splash',
+                    );
+                    appLinks.uriLinkStream.listen(
+                      (link) {
+                        if (link
+                                .toString()
+                                .contains('com.example.gestionale://splash') &&
+                            link.queryParameters.containsKey('code')) {
+                          closeInAppWebView();
+                          if (supabase.auth.currentSession == null) {
+                            throw Exception('No session found');
+                          }
+                          final user = supabase.auth.currentUser!;
+                          context.read<AuthCubit>().updateCurrentUserSession(
+                                supabase.auth.currentSession!.accessToken,
+                                UserModel(
+                                  id: user.id,
+                                  name: user.userMetadata!['full_name'],
+                                ),
+                              );
+                        }
+                      },
+                    );
+                  },
+                  child: const Text('Continue with GitHub'),
                 ),
               ],
             ),

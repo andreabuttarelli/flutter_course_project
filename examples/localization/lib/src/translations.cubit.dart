@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'dart:io';
 
 import 'package:localization/src/translations.state.dart';
 import 'package:localization/src/typedefs.dart';
 
 Locale get _getUserLocale {
-  final userLocaleString = Platform.localeName;
+  const userLocaleString = 'en'; //Platform.localeName;
   return Locale(userLocaleString.split('_').first);
 }
 

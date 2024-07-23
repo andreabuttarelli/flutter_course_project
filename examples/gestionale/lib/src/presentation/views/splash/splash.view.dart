@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestionale/src/presentation/global_blocs/auth/auth.cubit.dart';
 import 'package:gestionale/src/presentation/views/auth/auth.view.dart';
 import 'package:gestionale/src/presentation/views/home/home.view.dart';
+import 'package:gestionale/src/presentation/views/realtime_home/realtime_home.view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -28,6 +29,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
+    return const RealtimeHomeView();
     if (isLoading) {
       return const Scaffold(
         body: Center(

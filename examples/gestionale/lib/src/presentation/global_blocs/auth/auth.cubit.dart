@@ -8,6 +8,10 @@ class AuthCubit extends HydratedCubit<AuthState> {
     emit(AuthLogged(token, user));
   }
 
+  void logout() {
+    emit(AuthUnlogged());
+  }
+
   void refreshToken() {
     final currentState = state;
     if (currentState is! AuthLogged) return;

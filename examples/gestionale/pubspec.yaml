@@ -47,6 +47,10 @@ dependencies:
 
   localization:
     path: ../localization
+  supabase_flutter: ^2.5.8
+  app_links: ^6.1.4
+  url_launcher: ^6.3.0
+  universal_platform: ^1.1.0
 
 dev_dependencies:
   flutter_test:

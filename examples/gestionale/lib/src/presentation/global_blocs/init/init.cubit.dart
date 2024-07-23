@@ -1,9 +1,10 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestionale/src/core/custom_exceptions/app_exception.dart';
-import 'package:gestionale/src/di/di.dart';
+import 'package:gestionale/src/di/di_io.dart';
 import 'package:gestionale/src/domain/usecases/init_dependencies.usecase.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InitCubit extends Cubit<InitState> {
   InitCubit(this._initDependenciesUseCase) : super(InitiLoading());
@@ -25,6 +26,10 @@ class InitCubit extends Cubit<InitState> {
   Future<Either<AppException, void>> _initDependencies() async {
     try {
       initDependenciesWithGetIt();
+      await Supabase.initialize(
+        url: '',
+        anonKey: '',
+      );
       final res = await _initDependenciesUseCase.call();
       if (res.isLeft) {
         throw res.left;
