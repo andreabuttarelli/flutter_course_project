@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256123582413",
+    "project_id": "daeliminare-c59bb",
+    "storage_bucket": "daeliminare-c59bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256123582413:android:362aaabecce8b9e5667684",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBDl35yA-yq2wNC0i6qeLnLJILeqgMFOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
