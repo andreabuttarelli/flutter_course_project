@@ -1,21 +1,22 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
-class ControllerBuilder<T extends TextEditingController>
+class ControllerBuilder<T extends ValueNotifier<dynamic>>
     extends StatefulWidget {
   const ControllerBuilder({
-    super.key,
     required this.create,
     required this.builder,
+    super.key,
   });
 
   final T Function() create;
   final Widget Function(BuildContext, T) builder;
 
   @override
-  State<ControllerBuilder> createState() => _ControllerBuilderState();
+  State<ControllerBuilder<T>> createState() => _ControllerDisposerState<T>();
 }
 
-class _ControllerBuilderState<T extends TextEditingController>
+class _ControllerDisposerState<T extends ValueNotifier<dynamic>>
     extends State<ControllerBuilder<T>> {
   late final T controller;
 
