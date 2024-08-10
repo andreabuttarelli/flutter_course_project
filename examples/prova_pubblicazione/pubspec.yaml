@@ -60,6 +60,10 @@ package_rename_config:
     bundle_name: com.andreabuttarelli.provapubblicazione
     package_name: com.andreabuttarelli.provapubblicazione
 
+  web:
+    app_name: prova_pubblicazione
+    description: A new Flutter project.
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
