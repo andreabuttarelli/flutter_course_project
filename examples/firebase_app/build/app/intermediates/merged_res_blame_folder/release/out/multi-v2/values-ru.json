@@ -1,0 +1,87 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.firebase_app-mergeReleaseResources-26:/values-ru/values-ru.xml",
+            "map": [
+                {
+                    "source": "/Users/andreabuttarelli/.gradle/caches/transforms-3/0bb3674e86aee5423938d1dd1ce6e8be/transformed/browser-1.4.0/res/values-ru/values-ru.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,163,268,380",
+                        "endColumns": "107,104,111,104",
+                        "endOffsets": "158,263,375,480"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "2557,2665,2770,2882",
+                        "endColumns": "107,104,111,104",
+                        "endOffsets": "2660,2765,2877,2982"
+                    }
+                },
+                {
+                    "source": "/Users/andreabuttarelli/.gradle/caches/transforms-3/8bc7c5a37fbf541f970f3fc939898587/transformed/jetified-play-services-basement-18.3.0/res/values-ru/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "152",
+                        "endOffsets": "347"
+                    },
+                    "to": {
+                        "startLines": "12",
+                        "startColumns": "4",
+                        "startOffsets": "1283",
+                        "endColumns": "156",
+                        "endOffsets": "1435"
+                    }
+                },
+                {
+                    "source": "/Users/andreabuttarelli/.gradle/caches/transforms-3/3e4835df97c143687767873b8e72ff91/transformed/core-1.9.0/res/values-ru/values-ru.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "26",
+                        "startColumns": "4",
+                        "startOffsets": "2987",
+                        "endColumns": "100",
+                        "endOffsets": "3083"
+                    }
+                },
+                {
+                    "source": "/Users/andreabuttarelli/.gradle/caches/transforms-3/4cb3ba54b004b298d1176b25536d0e84/transformed/jetified-play-services-base-18.0.1/res/values-ru/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "193,296,458,580,686,824,949,1060,1160,1337,1440,1599,1721,1884,2038,2103,2159",
+                        "endColumns": "102,161,121,105,137,124,110,99,176,102,158,121,162,153,64,55,81",
+                        "endOffsets": "295,457,579,685,823,948,1059,1159,1336,1439,1598,1720,1883,2037,2102,2158,2240"
+                    },
+                    "to": {
+                        "startLines": "4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "284,391,557,683,793,935,1064,1179,1440,1621,1728,1891,2017,2184,2342,2411,2471",
+                        "endColumns": "106,165,125,109,141,128,114,103,180,106,162,125,166,157,68,59,85",
+                        "endOffsets": "386,552,678,788,930,1059,1174,1278,1616,1723,1886,2012,2179,2337,2406,2466,2552"
+                    }
+                },
+                {
+                    "source": "/Users/andreabuttarelli/.gradle/caches/transforms-3/1ba4e1500130f841913fde33f590a83f/transformed/jetified-credentials-1.2.0-rc01/res/values-ru/values-ru.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,165",
+                        "endColumns": "109,118",
+                        "endOffsets": "160,279"
+                    }
+                }
+            ]
+        }
+    ]
+}
