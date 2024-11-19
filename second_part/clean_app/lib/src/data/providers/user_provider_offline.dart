@@ -1,5 +1,5 @@
-class UserProvider {
-  const UserProvider();
+class UserProviderOffline {
+  const UserProviderOffline();
 
   Future<String> getUserID() async {
     await Future.delayed(const Duration(seconds: 1));

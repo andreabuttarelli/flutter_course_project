@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prova/src/presentation/design_system/palette/palette.dart';
 import 'package:prova/src/presentation/design_system/progress_indicator/circular_progress_indicator.dart';
 import 'package:prova/src/presentation/design_system/typography/widgets/typography.widget.dart';
 
