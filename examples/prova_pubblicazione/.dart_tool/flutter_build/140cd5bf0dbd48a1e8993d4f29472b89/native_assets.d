@@ -1,1 +1,0 @@
- /Users/andreabuttarelli/Documents/GitHub/flutter_course_project/examples/prova_pubblicazione/.dart_tool/flutter_build/140cd5bf0dbd48a1e8993d4f29472b89/native_assets.yaml: 

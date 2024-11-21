@@ -1,1 +1,0 @@
- /Users/andreabuttarelli/Documents/GitHub/flutter_course_project/examples/firebase_app/.dart_tool/flutter_build/2ce304e08d7f34631e4a38c962e0ec95/native_assets.yaml: 

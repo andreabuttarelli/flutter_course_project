@@ -1,1 +1,0 @@
- /Users/andreabuttarelli/Documents/GitHub/flutter_course_project/examples/offline_app/.dart_tool/flutter_build/68df1a1c67e587708d97b0467b54f92a/native_assets.yaml: 
