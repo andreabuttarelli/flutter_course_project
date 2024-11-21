@@ -1,3 +1,4 @@
+import 'package:clean_app/src/presentation/design_system/typography/body_typo_widget.dart';
 import 'package:clean_app/src/presentation/design_system/typography/display_typo_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class PrimaryButton extends StatelessWidget {
           Theme.of(context).colorScheme.primary,
         ),
       ),
-      child: DisplayTypo(label: label),
+      child: BodyTypo(label: label),
     );
   }
 }
