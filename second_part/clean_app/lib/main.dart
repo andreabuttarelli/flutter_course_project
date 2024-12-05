@@ -1,3 +1,6 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:clean_app/src/core/extensions/string_ext.dart';
+import 'package:clean_app/src/presentation/design_system/palette/palette.dart';
 import 'package:clean_app/src/router.dart';
 import 'package:flutter/material.dart';
 
@@ -11,28 +14,48 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: router,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return AdaptiveTheme(
+      initial: AdaptiveThemeMode.system,
+      light: ThemeData(
+        primaryColor: AppColors.primary.lightThemeValue.c,
+        scaffoldBackgroundColor: AppColors.backgroundPrimary.lightThemeValue.c,
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: AppColors.primary.lightThemeValue.c,
+          onPrimary: AppColors.onPrimary.lightThemeValue.c,
+          secondary: AppColors.secondary.lightThemeValue.c,
+          onSecondary: AppColors.onSecondary.lightThemeValue.c,
+          error: AppColors.error.lightThemeValue.c,
+          onError: AppColors.onPrimary.lightThemeValue.c,
+          surface: AppColors.backgroundPrimary.lightThemeValue.c,
+          onSurface: AppColors.onBackgroundPrimary.lightThemeValue.c,
+          surfaceContainer:
+              AppColors.inputBackgroundOnPrimary.lightThemeValue.c,
+        ),
         useMaterial3: true,
       ),
+      dark: ThemeData(
+        colorScheme: ColorScheme(
+          brightness: Brightness.dark,
+          primary: AppColors.primary.darkThemeValue.c,
+          onPrimary: AppColors.onPrimary.darkThemeValue.c,
+          secondary: AppColors.secondary.darkThemeValue.c,
+          onSecondary: AppColors.onSecondary.darkThemeValue.c,
+          error: AppColors.error.darkThemeValue.c,
+          onError: AppColors.onPrimary.darkThemeValue.c,
+          surface: AppColors.backgroundPrimary.darkThemeValue.c,
+          onSurface: AppColors.onBackgroundPrimary.darkThemeValue.c,
+          surfaceContainer: AppColors.inputBackgroundOnPrimary.darkThemeValue.c,
+        ),
+        useMaterial3: true,
+      ),
+      builder: (context, theme) {
+        return MaterialApp.router(
+          routerConfig: router,
+          title: 'Flutter Demo',
+          theme: theme,
+        );
+      },
     );
   }
 }
