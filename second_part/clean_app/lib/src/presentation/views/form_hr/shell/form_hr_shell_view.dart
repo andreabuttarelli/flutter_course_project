@@ -1,6 +1,6 @@
+import 'package:clean_app/src/di/di.dart';
 import 'package:clean_app/src/presentation/design_system/guidelines/grid.dart';
 import 'package:clean_app/src/presentation/design_system/guidelines/margins.dart';
-import 'package:clean_app/src/presentation/design_system/typography/body_typo_widget.dart';
 import 'package:clean_app/src/presentation/design_system/typography/label_typo_widget.dart';
 import 'package:clean_app/src/presentation/views/form_hr/blocs/form_hr_cubit.dart';
 import 'package:clean_app/src/presentation/views/form_hr/form_her_view_with_indexstack_with_valuenotifier.dart';
@@ -31,7 +31,7 @@ Map<FormHRTabs, Set<String>> formKeysByTab = {
   FormHRTabs.anagrafica: anagraficaSectionKeys,
 };
 
-class FormHrShellView extends StatefulWidget {
+class FormHrShellView extends StatelessWidget {
   const FormHrShellView({
     super.key,
     required this.tab,
@@ -42,22 +42,11 @@ class FormHrShellView extends StatefulWidget {
   final Widget child;
 
   @override
-  State<FormHrShellView> createState() => _FormHrShellViewState();
-}
-
-class _FormHrShellViewState extends State<FormHrShellView> {
-  late final GlobalKey<FormState> formKey;
-
-  @override
-  void initState() {
-    super.initState();
-    formKey = GlobalKey<FormState>();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FormHRCubit(),
+      create: (context) => FormHRCubit(
+        getIt(),
+      ),
       child: Scaffold(
         body: SafeArea(
           child: Padding(
@@ -65,13 +54,13 @@ class _FormHrShellViewState extends State<FormHrShellView> {
             child: Column(
               children: [
                 CupertinoSlidingSegmentedControl<int>(
-                  groupValue: widget.tab.index,
+                  groupValue: tab.index,
                   children: <int, Widget>{
                     ...['Residenza', 'Anagrafica', 'Curriculum'].asMap().map(
                           (key, value) => MapEntry(
                             key,
                             Opacity(
-                              opacity: widget.tab.index >= key ? 1 : 0.1,
+                              opacity: tab.index >= key ? 1 : 0.1,
                               child: LabelTypo(label: value),
                             ),
                           ),
@@ -80,36 +69,14 @@ class _FormHrShellViewState extends State<FormHrShellView> {
                   onValueChanged: (page) {
                     assert(page != null);
                     if (page == null) return;
-                    if (page < widget.tab.index) {
+                    if (page < tab.index) {
                       context.push('/form_hr/${FormHRTabs.values[page].name}');
                     }
                   },
                 ),
                 const Gap(Grid.md),
                 Expanded(
-                  child: Form(
-                    key: formKey,
-                    child: widget.child,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    final unvalidateFields = formKey.currentState!
-                        .validateGranularly()
-                        .map((e) => (e.widget.key as ValueKey).value)
-                        .toSet();
-                    final unvalidateTabField = formKeysByTab[widget.tab]!
-                        .any((e) => unvalidateFields.contains(e));
-                    if (unvalidateTabField) {
-                      print('Unvalidate fields: $unvalidateFields');
-                      return;
-                    }
-                    if (widget.tab.index < FormHRTabs.values.length - 1) {
-                      context.go(
-                          '/form_hr/${FormHRTabs.values[widget.tab.index + 1].name}');
-                    }
-                  },
-                  child: const BodyTypo(label: 'Continue'),
+                  child: child,
                 ),
               ],
             ),
