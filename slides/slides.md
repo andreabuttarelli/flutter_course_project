@@ -6,3 +6,7 @@ https://www.figma.com/proto/MsHk7YY19Y6KdJCVmbDPBG/Untitled?page-id=0%3A1&node-i
 # Come creare un Form in Flutter
 
 [Link Presentazione](https://www.figma.com/proto/MsHk7YY19Y6KdJCVmbDPBG/Untitled?page-id=0%3A1&node-id=45-2&node-type=frame&viewport=1557%2C-788%2C0.29&t=kIz195SYlurz9FOt-1&scaling=contain&content-scaling=fixed)
+
+# Animazioni
+
+https://www.figma.com/proto/MsHk7YY19Y6KdJCVmbDPBG/Corso-Flutter?page-id=0%3A1&node-id=89-2&node-type=frame&viewport=525%2C-170%2C0.05&t=VfIR1plbozEVhTKO-1&scaling=contain&content-scaling=fixed
