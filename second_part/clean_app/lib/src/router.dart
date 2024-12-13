@@ -1,3 +1,11 @@
+import 'package:clean_app/src/presentation/views/animations/animated_button_widget.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_container_widget.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_cross_fade_widget.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_cursor.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_grid_widget.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_list_widget.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_text.dart';
+import 'package:clean_app/src/presentation/views/animations/navigation_animation_example.dart';
 import 'package:clean_app/src/presentation/views/form_hr/form_her_view_with_indexstack_with_valuenotifier.dart';
 import 'package:clean_app/src/presentation/views/form_hr/form_her_view_with_pageview.dart';
 import 'package:clean_app/src/presentation/views/form_hr/shell/anagrafica_view.dart';
@@ -13,7 +21,7 @@ final router = GoRouter(routes: [
   GoRoute(
     path: '/',
     builder: (context, state) => const SizedBox(),
-    redirect: (_, __) => '/lottie',
+    redirect: (_, __) => '/navigation-animation-page-1',
   ),
   GoRoute(
     path: '/form_hr_indexed',
@@ -27,6 +35,42 @@ final router = GoRouter(routes: [
   GoRoute(
     path: '/lottie',
     builder: (context, state) => const LottieAnimationView(),
+  ),
+  GoRoute(
+    path: '/animated_container',
+    builder: (context, state) => const AnimatedContainerWidget(),
+  ),
+  GoRoute(
+    path: '/animated_button',
+    builder: (context, state) => const ExampleAnimatedButton(),
+  ),
+  GoRoute(
+    path: '/animated_cursor',
+    builder: (context, state) => const AnimatedCursor(),
+  ),
+  GoRoute(
+    path: '/animated_text',
+    builder: (context, state) => const AnimatedText(),
+  ),
+  GoRoute(
+    path: '/animated_cross_fade',
+    builder: (context, state) => const AnimatedCrossFadeWidget(),
+  ),
+  GoRoute(
+    path: '/animated_list',
+    builder: (context, state) => const AnimatedListWidget(),
+  ),
+  GoRoute(
+    path: '/animated_grid',
+    builder: (context, state) => const AnimatedGridWidget(),
+  ),
+  GoRoute(
+    path: '/navigation-animation-page-1',
+    builder: (_, __) => const NavigationAnimationPage1(),
+  ),
+  GoRoute(
+    path: '/navigation-animation-page-2',
+    builder: (_, __) => const NavigationAnimationPage2(),
   ),
   ShellRoute(
     routes: [
