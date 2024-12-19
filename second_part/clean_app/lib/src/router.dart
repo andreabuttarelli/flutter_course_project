@@ -4,7 +4,9 @@ import 'package:clean_app/src/presentation/views/animations/animated_cross_fade_
 import 'package:clean_app/src/presentation/views/animations/animated_cursor.dart';
 import 'package:clean_app/src/presentation/views/animations/animated_grid_widget.dart';
 import 'package:clean_app/src/presentation/views/animations/animated_list_widget.dart';
+import 'package:clean_app/src/presentation/views/animations/animated_splash_screen.dart';
 import 'package:clean_app/src/presentation/views/animations/animated_text.dart';
+import 'package:clean_app/src/presentation/views/animations/linear_progress_indicator_animation.dart';
 import 'package:clean_app/src/presentation/views/animations/navigation_animation_example.dart';
 import 'package:clean_app/src/presentation/views/form_hr/form_her_view_with_indexstack_with_valuenotifier.dart';
 import 'package:clean_app/src/presentation/views/form_hr/form_her_view_with_pageview.dart';
@@ -13,15 +15,17 @@ import 'package:clean_app/src/presentation/views/form_hr/shell/curriculum_view.d
 import 'package:clean_app/src/presentation/views/form_hr/shell/form_hr_shell_view.dart';
 import 'package:clean_app/src/presentation/views/form_hr/shell/residenza_view.dart';
 import 'package:clean_app/src/presentation/views/form_hr/wrong_form_her_view_with_indexstack_validate_granularity.dart';
+import 'package:clean_app/src/presentation/views/isolate/long_feed_view.dart';
 import 'package:clean_app/src/presentation/views/lottie/lottie_view.dart';
+import 'package:clean_app/src/presentation/views/native_view/native_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(routes: [
   GoRoute(
     path: '/',
-    builder: (context, state) => const SizedBox(),
-    redirect: (_, __) => '/navigation-animation-page-1',
+    builder: (context, state) => const AnimatedSplashScreen(),
+    redirect: (_, __) => '/native_view',
   ),
   GoRoute(
     path: '/form_hr_indexed',
@@ -71,6 +75,18 @@ final router = GoRouter(routes: [
   GoRoute(
     path: '/navigation-animation-page-2',
     builder: (_, __) => const NavigationAnimationPage2(),
+  ),
+  GoRoute(
+    path: '/progress-indicator',
+    builder: (_, __) => const ProgressIndicatorAnimationWidget(),
+  ),
+  GoRoute(
+    path: '/long_feed',
+    builder: (_, __) => const LongFeed(),
+  ),
+  GoRoute(
+    path: '/native_view',
+    builder: (_, __) => const NativeView(),
   ),
   ShellRoute(
     routes: [
